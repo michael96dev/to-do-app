@@ -1,0 +1,25 @@
+{
+  "name": "todo-cli",
+  "version": "1.0.0",
+  "description": "A lightweight CLI todo app focused on quick execution",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node --test tests/",
+    "dev": "node src/server.js",
+    "frontend": "cd frontend && npm run dev"
+  },
+  "keywords": [
+    "todo",
+    "cli",
+    "productivity"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^4.18.2"
+  }
+}
