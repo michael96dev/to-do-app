@@ -1,0 +1,117 @@
+/* Weather panel main container */
+.weather-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 1rem;
+  height: 100%;
+  width: 100%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+/* Current weather section */
+.current-weather {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* Present day weather block (horizontal layout) */
+.weather-now {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: rgba(255, 255, 255, 0.25);
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Weather icon sizing */
+.weather-icon {
+  width: 80px;
+  height: 80px;
+}
+
+/* Temperature and description area */
+.weather-now-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: #fff;
+  font-weight: 500;
+}
+
+.weather-temp {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.weather-desc {
+  font-size: 1rem;
+  text-transform: capitalize;
+}
+
+/* Forecast section (below the current weather) */
+.weather-summary {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: nowrap;
+  margin-top: 1rem;
+  overflow-x: auto;
+  width: 100%;
+  padding-bottom: 0.5rem;
+}
+
+/* Individual day in forecast */
+.weather-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255,255,255,0.2);
+  border-radius: 10px;
+  padding: 0.5rem;
+  min-width: 75px;
+  transition: transform 0.2s ease;
+}
+
+.weather-day:hover {
+  transform: translateY(-3px);
+}
+
+.weather-day img {
+  width: 40px;
+  height: 40px;
+}
+
+.weather-day .day-temp {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+  margin-top: 0.25rem;
+}
+
+.weather-day .day-name {
+  font-size: 0.8rem;
+  color: #e0e0e0;
+}
+
+/* Scrollbar style for forecast row */
+.weather-summary::-webkit-scrollbar {
+  height: 6px;
+}
+.weather-summary::-webkit-scrollbar-thumb {
+  background-color: rgba(255,255,255,0.4);
+  border-radius: 4px;
+}

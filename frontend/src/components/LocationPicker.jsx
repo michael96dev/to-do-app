@@ -61,7 +61,9 @@ function LocationPicker({ location, onLocationChange, currentLocation, onSearchi
   // Only request geolocation on initial mount
   useEffect(() => {
     mountedRef.current = true;
-    getUserLocation();
+    if (!location?.lat || !location?.lon) {
+      getUserLocation();
+    }
     return () => {
       mountedRef.current = false;
     };

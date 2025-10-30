@@ -4,571 +4,395 @@
   --text-color: #213547;
 }
 
+/* ====================== BASE ======================= */
 body {
   background: linear-gradient(180deg, #1a1a1a, #000000);
-  min-height: 100vh;
-  margin: 0;
-  /* Use Bitcount Grid Single from Google Fonts, fall back to system fonts */
-  font-family: 'Bitcount Grid Single', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
   color: var(--text-color);
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Bitcount Grid Single', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  overflow-x: hidden;
   position: relative;
 }
 
+/* Subtle glass-like glow overlay */
 body::before {
   content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 80%);
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.08) 0%, transparent 80%);
   pointer-events: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px;
-    z-index: 2000;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.2), transparent);
-    backdrop-filter: blur(8px);
-    transition: transform 0.3s ease;
-  }
-
-  .header-hidden {
-    transform: translateY(-100%);
-  }
-
-  .app-title {
-    color: white;
-    font-size: 2.2rem;
-    font-weight: 600;
-    margin: 0;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-    letter-spacing: 0.5px;
-    padding: 0.2rem 0;
-    line-height: 1.2;
-
-/* 2-column x 2-row grid layout with even spacing
-   Columns: 50% | 50%
-   Rows: each 45vh so top and bottom panels are equal height */
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 12px 20px;
-    z-index: 1000;
-    background: linear-gradient(to top, rgba(0,0,0,0.2), transparent);
-    backdrop-filter: blur(8px);
-    color: white;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-    transition: transform 0.3s ease;
-    transform: translateY(100%);
-  }
-
-  .footer-visible {
-    transform: translateY(0);
-  border-radius: 8px;
-  padding: 0.75rem;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.1);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 45vh 45vh;
-    gap: 2.5rem;
-    align-items: stretch;
-    justify-content: center;
-    padding: 6.5rem 2.5rem 2.5rem;
-    min-height: 100vh;
-    position: relative;
-    z-index: 1;
-  max-height: 45vh;
+  z-index: 0;
 }
 
-.todos-panel > h2 {
-  margin-bottom: 1rem;
-  flex-shrink: 0;
-}
-
-.add-todo {
-  flex-shrink: 0;
-  margin-bottom: 1rem;
-}
-
-/* Top-right weather panel */
-.weather-panel {
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
-  min-height: 45vh;
-  max-height: 45vh;
-  /* Background image from public folder */
-  background-image: linear-gradient(rgba(255,255,255,0.65), rgba(255,255,255,0.45)), url('/Bliss_(Windows_XP).png');
-  background-color: transparent;
-  background-size: cover;
-  background-position: center;
-  color: #0b2746;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Bottom-left */
-.bottom-left-panel {
-  grid-column: 1 / 2;
-  grid-row: 2 / 3;
-}
-
-/* Bottom-right */
-.bottom-right-panel {
-  grid-column: 2 / 3;
-  grid-row: 2 / 3;
-}
-
-/* Ensure headings and content sizes look good */
-.panel h2, .panel h3 {
-  margin: 0 0 0.5rem 0;
-}
-
-/* Weather summary horizontal row below today's weather */
-.weather-summary {
-  margin-top: 0.75rem;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-.weather-summary .forecast-row {
-  display: flex;
-  gap: 0.35rem; /* reduced gap */
-  justify-content: space-between;
-  align-items: stretch;
-  padding: 0.1rem 0;
-  width: 100%;
-  flex: 1;
-}
-
-.weather-summary .forecast-day {
-  background: rgba(255,255,255,0.0); /* transparent box */
-  border: 1px solid #000; /* reduced border */
-  box-shadow: 0 1px 4px rgba(0,0,0,0.12);
-  padding: 8px; /* increased padding */
-  border-radius: 6px;
-  min-width: 44px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  flex: 1;
-}
-
-.weather-summary .day-name {
-  font-weight: 700;
-  font-size: 0.8rem;
-  text-transform: capitalize;
-  margin-bottom: 2px;
-}
-
-.weather-summary .forecast-details {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  flex: 1;
-  justify-content: center;
-}
-
-.weather-summary .forecast-icon {
-  width: 75%;
-  aspect-ratio: 1;
-  object-fit: contain;
-  min-width: 56px;
-  max-width: 72px;
-}
-
-.weather-summary .forecast-temp {
-  font-size: 0.85rem;
-  font-weight: 600;
-  white-space: nowrap;
-  text-align: center;
-}
-
-/* Today's weather layout: icon on left, details on right */
-.weather-now {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.weather-icon {
-  width: 64px;
-  height: 64px;
-}
-
-.weather-now-details {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.weather-now .weather-temp {
-  font-size: 1.6rem;
-  font-weight: 700;
-}
-
-.weather-now .weather-desc {
-  font-size: 0.95rem;
-  color: rgba(0,0,0,0.7);
-}
-
-/* Ensure weather panel doesn't allow children to overflow outside */
-.weather-panel,
-.weather-panel .weather-container {
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.weather-container {
-  gap: 0.75rem;
-}
-
-.location-controls {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  position: relative;
-  z-index: 10;
-}
-
-
-.current-location {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem;
-  font-weight: 500;
-}
-
-.location-button,
-.city-button {
-  padding: 0.4rem 0.8rem;
-  border: none;
-  border-radius: 6px;
-  background: rgba(255,255,255,0.25);
-  backdrop-filter: blur(4px);
-  cursor: pointer;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  transition: all 0.2s ease;
-}
-
-.location-controls-buttons {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-}
-
-.home-button,
-.city-button {
-  padding: 0.4rem 0.8rem;
-  border: none;
-  border-radius: 6px;
-  background: rgba(255,255,255,0.25);
-  backdrop-filter: blur(4px);
-  cursor: pointer;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  transition: all 0.2s ease;
-}
-
-.home-button:disabled,
-.city-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.home-button:hover:not(:disabled),
-.city-button:hover:not(:disabled) {
-  background: rgba(255,255,255,0.4);
-  transform: translateY(-1px);
-}
-
-.location-search-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  position: relative;
-}
-
-.search-header {
-  display: flex;
-  align-items: center;
-  width: 75%;
-  position: relative;
-  margin: 0.5rem auto;
-}
-
-.location-search {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  padding-right: 40px; /* Space for close button */
-  border: 2px solid rgba(0,0,0,0.1);
-  border-radius: 8px;
-  font-size: 1rem;
-  background: rgba(255,255,255,0.9);
-  transition: all 0.2s ease;
-}
-
-.search-close-button {
-  position: absolute;
-  right: 8px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  font-size: 1.2rem;
-  color: #666;
-  padding: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-}
-
-.search-close-button:hover {
-  color: #000;
-  transform: translateY(-50%) scale(1.1);
-}
-
-.location-search:focus {
-  outline: none;
-  border-color: rgba(0,0,0,0.2);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.search-results {
-  width: 75%;
-  max-height: 200px;
-  overflow-y: auto;
-  background: rgba(255,255,255,0.95);
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.location-option {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: none;
-  background: transparent;
-  text-align: left;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  font-size: 0.95rem;
-}
-
-.location-option:hover {
-  background-color: rgba(0,0,0,0.05);
-}
-
-.no-results {
-  padding: 1rem;
-  text-align: center;
-  color: #666;
-}
-
-.visually-hidden {
-  position: absolute !important;
-  height: 1px; width: 1px; overflow: hidden;
-  clip: rect(1px, 1px, 1px, 1px); white-space: nowrap;
-}
-
-/* Responsive fallback: stack on small screens */
-@media (max-width: 900px) {
-  .app.grid-layout {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-  }
-  .reminder-panel {
-    grid-column: 1 / 2;
-    grid-row: auto;
-  }
-}
-
-.add-todo {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.add-todo input {
-  flex: 1;
-  padding: 0.5rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
-}
-
-.add-todo button {
-  padding: 0.5rem 1rem;
-  background: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.todo-list {
-  list-style: none;
-  padding: 0;
-  overflow-y: auto;
-  flex: 1;
-  margin: 0;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(0,0,0,0.3) transparent;
-}
-
-.todo-list::-webkit-scrollbar {
-  width: 6px;
-}
-
-.todo-list::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.todo-list::-webkit-scrollbar-thumb {
-  background-color: rgba(0,0,0,0.3);
-  border-radius: 3px;
-}
-
-.todo-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem;
-  margin-bottom: 0.5rem;
-  background: var(--bg-color);
-  border: 1px solid #eee;
-  border-radius: 4px;
-}
-
-.todo-item.done span {
-  text-decoration: line-through;
-  color: #888;
-}
-
-.todo-item label {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex: 1;
-}
-
-.delete-btn {
-  background: none;
-  border: none;
-  color: #ff4444;
-  font-size: 1.25rem;
-  cursor: pointer;
-  padding: 0 0.5rem;
-}
-
-.empty-list {
-  text-align: center;
-  color: #888;
-}
-
-/* App header elements */
+/* ====================== HEADER ======================= */
 .app-header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
+  z-index: 10;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px 30px;
-  z-index: 2000;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.2), transparent);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.35), transparent);
   backdrop-filter: blur(8px);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.header-hidden {
+  transform: translateY(-100%);
+  opacity: 0;
 }
 
 .app-title {
   color: white;
-  font-size: 2.2rem;
+  font-size: 2rem;
   font-weight: 600;
-  margin: 0;
   text-shadow: 0 2px 4px rgba(0,0,0,0.3);
   letter-spacing: 0.5px;
-  padding: 0.2rem 0;
-  line-height: 1.2;
+  margin: 0;
 }
 
-/* Clock in top-right */
 .top-clock {
   text-align: right;
   color: white;
   text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-  line-height: 1.3;
 }
-
 .top-clock .date {
   font-weight: 600;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
+}
+.top-clock .time {
+  font-size: 1rem;
+  opacity: 0.9;
 }
 
-.top-clock .time {
+/* ====================== MAIN GRID ======================= */
+.app.grid-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 45vh 45vh;
+  gap: 2rem;
+  padding: 7rem 2rem 5rem;
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}
+
+.panel {
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.08);
+  color: white;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+.panel:hover {
+  transform: scale(1.02);
+}
+
+/* ========== WEATHER PANEL ========== */
+/* ====================== WEATHER PANEL ======================= */
+.weather-panel {
+  background-image: linear-gradient(rgba(255,255,255,0.25), rgba(255,255,255,0.1)), url('/Bliss_(Windows_XP).png');
+  background-size: cover;
+  background-position: center;
+  color: #0b2746;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+/* ========== Weather Container ========== */
+.weather-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  position: relative;
+}
+
+.current-weather {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: rgba(255,255,255,0.25);
+  padding: 0.75rem;
+  border-radius: 10px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+/* Weather Now (main info) */
+.weather-now {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.5rem;
+  gap: 0.75rem;
+}
+
+.weather-icon {
+  width: 64px;
+  height: 64px;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.25));
+}
+
+.weather-now-details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.weather-temp {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #0b2746;
+}
+
+.weather-desc {
+  text-transform: capitalize;
   font-size: 1.1rem;
-  margin-top: 3px;
+  opacity: 0.9;
+}
+
+/* Empty / Error States */
+.weather-empty,
+.weather-error,
+.weather-hint {
+  color: rgba(11,39,70,0.9);
+  font-size: 0.95rem;
+  padding: 1rem;
+  text-align: center;
+  background: rgba(255,255,255,0.15);
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+/* Loading state */
+.weather-loading {
+  text-align: center;
+  padding: 1.5rem;
+  color: white;
+  font-size: 1.1rem;
+}
+
+/* ========== Forecast Summary Row (WeatherSummary.jsx) ========== */
+.weather-summary {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 0.6rem;
+  padding-bottom: 0;
+}
+
+.forecast-day {
+  box-sizing: border-box;
+  flex: 0 0 calc((100% - 3rem) / 6); /* six cards per row accounting for 5 gaps of 0.6rem */
+  background: rgba(255,255,255,0.2);
+  border-radius: 12px;
+  padding: 0.5rem 0.5rem;
+  text-align: center;
+  color: #0b2746;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.forecast-day:hover {
+  transform: scale(1.05);
+  background: rgba(255,255,255,0.3);
+}
+
+.forecast-day .date {
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+}
+
+.forecast-day .temp-range {
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+
+/* Forecast icons sizing to keep cards compact */
+.forecast-day img {
+  width: 36px;
+  height: 36px;
+}
+
+/* ========== TODO PANEL ========== */
+.todos-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-todo {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.add-todo input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+.add-todo button {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.add-todo button:hover {
+  background: #4d54f3;
+}
+
+.todo-list {
+  flex: 1;
+  list-style: none;
+  padding: 0;
+  overflow-y: auto;
+}
+
+/* ========== NOTES & SETTINGS PANELS ========== */
+.bottom-left-panel,
+.bottom-right-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.notes-placeholder,
+.settings-placeholder {
+  opacity: 0.8;
+  font-size: 0.95rem;
+}
+
+/* ========== NOTES FEATURE ========== */
+.notes-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+.note-input {
+  width: 100%;
+  resize: vertical;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.15);
+  color: white;
+}
+.note-title-input {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.2);
+  color: white;
+}
+.note-submit {
+  align-self: flex-end;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.4rem 0.9rem;
+  cursor: pointer;
+}
+.note-submit:hover { opacity: 0.95; }
+
+/* Settings panel shows last 6 notes in 3x2 grid */
+.notes-grid {
+  margin-top: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 0.75rem;
+  width: 100%;
+}
+.note-card {
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 12px;
+  padding: 0.75rem;
+  width: 100%;
+  height: 100%;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  overflow: hidden;
+  display: -webkit-box;
+  line-clamp: 8;
+  -webkit-line-clamp: 8;
+  -webkit-box-orient: vertical;
+}
+.note-card-title {
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  font-size: 0.95rem;
+}
+.note-card-body {
+  font-size: 0.9rem;
   opacity: 0.95;
 }
 
-.todo-meta {
-  font-size: 0.8rem;
-  color: #5b6b7a;
-}
-
-.todo-text {
-  font-size: 1rem;
-  font-weight: 500;
-}
-
-/* Footer styles */
+/* ====================== FOOTER ======================= */
 .app-footer {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   padding: 12px 20px;
-  z-index: 1000;
-  background: linear-gradient(to top, rgba(0,0,0,0.2), transparent);
-  backdrop-filter: blur(8px);
+  text-align: center;
   color: white;
   font-size: 0.9rem;
-  letter-spacing: 1px;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  background: linear-gradient(to top, rgba(0,0,0,0.2), transparent);
+  backdrop-filter: blur(8px);
+  z-index: 5;
+  transition: transform 0.3s ease;
 }
 
-.app-footer .copyright {
-  font-size: 0.95rem;
-  margin-right: 4px;
+.footer-visible {
+  transform: translateY(0);
+}
+
+/* ====================== RESPONSIVE ======================= */
+@media (max-width: 900px) {
+  .app.grid-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    padding: 6rem 1rem 4rem;
+  }
+
+  .panel {
+    min-height: 40vh;
+  }
+
+  .app-title {
+    font-size: 1.6rem;
+  }
+
+  .top-clock .date {
+    font-size: 1rem;
+  }
 }
